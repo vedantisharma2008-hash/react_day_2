@@ -3,10 +3,46 @@
 :root {
   --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   
-  /* Color Palette - Dark Glassmorphism */
-  --bg-dark: #0f172a;
+  /* Light Theme (Default) */
+  --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #f8fafc 100%);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(226, 232, 240, 0.8);
+  --card-hover-border: rgba(99, 102, 241, 0.5);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  
+  --accent-primary: #4f46e5;
+  --accent-glow: rgba(79, 70, 229, 0.25);
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  
+  --high-priority: #dc2626;
+  --high-priority-bg: rgba(254, 226, 226, 0.9);
+  --medium-priority: #d97706;
+  --medium-priority-bg: rgba(254, 243, 199, 0.9);
+  --low-priority: #059669;
+  --low-priority-bg: rgba(209, 250, 229, 0.9);
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 35px -10px rgba(99, 102, 241, 0.15), 0 10px 20px rgba(15, 23, 42, 0.06);
+
+  --input-bg: #ffffff;
+  --stats-bg: #f8fafc;
+  --item-bg: #ffffff;
+  --item-hover-bg: #f8fafc;
+  --control-bg: #f1f5f9;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+/* Dark Theme Variant */
+[data-theme='dark'] {
   --bg-gradient: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 70%);
-  --card-bg: rgba(30, 41, 59, 0.7);
+  --card-bg: rgba(30, 41, 59, 0.75);
   --card-border: rgba(255, 255, 255, 0.1);
   --card-hover-border: rgba(99, 102, 241, 0.4);
   
@@ -28,10 +64,12 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.2);
-  
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+
+  --input-bg: rgba(15, 23, 42, 0.6);
+  --stats-bg: rgba(15, 23, 42, 0.4);
+  --item-bg: rgba(15, 23, 42, 0.5);
+  --item-hover-bg: rgba(30, 41, 59, 0.8);
+  --control-bg: rgba(15, 23, 42, 0.6);
 }
 
 * {
@@ -42,13 +80,13 @@
 
 body {
   font-family: var(--font-family);
-  background: var(--bg-dark);
-  background-image: var(--bg-gradient);
+  background: var(--bg-gradient);
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -66,7 +104,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(148, 163, 184, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {

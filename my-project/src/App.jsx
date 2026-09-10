@@ -8,11 +8,19 @@ import './App.css';
 const INITIAL_TASKS = [
   { id: '1', title: '🚀 Set up project repository and structure', completed: true, priority: 'high' },
   { id: '2', title: '✨ Build reorderable task list component', completed: false, priority: 'high' },
-  { id: '3', title: '🎨 Add sleek dark glassmorphism styles and animations', completed: false, priority: 'medium' },
+  { id: '3', title: '🎨 Add sleek modern light theme & styling', completed: true, priority: 'medium' },
   { id: '4', title: '📱 Verify touch-friendly move up/down controls', completed: false, priority: 'low' },
 ];
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('todo_app_theme') || 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
   const [tasks, setTasks] = useState(() => {
     try {
       const saved = localStorage.getItem('todo_app_tasks');
@@ -30,6 +38,17 @@ function App() {
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [dragOverIndex, setDragOverIndex] = useState(null);
 
+  // Sync Theme to HTML root attribute
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('todo_app_theme', theme);
+    } catch (e) {
+      console.error('Failed to save theme setting:', e);
+    }
+  }, [theme]);
+
+  // Sync Tasks to Local Storage
   useEffect(() => {
     try {
       localStorage.setItem('todo_app_tasks', JSON.stringify(tasks));
@@ -37,6 +56,10 @@ function App() {
       console.error('Failed to save tasks to localStorage:', e);
     }
   }, [tasks]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   // Add Task
   const handleAddTask = ({ title, priority }) => {
@@ -96,7 +119,6 @@ function App() {
   const handleDragStart = (e, index) => {
     setDraggedIndex(index);
     e.dataTransfer.effectAllowed = 'move';
-    // Firefox requires setting data in dataTransfer
     e.dataTransfer.setData('text/plain', index.toString());
   };
 
@@ -139,18 +161,12 @@ function App() {
 
   // Filter Tasks
   const filteredTasks = tasks.filter((task) => {
-    // Status filter
     if (filter === 'active' && task.completed) return false;
     if (filter === 'completed' && !task.completed) return false;
-
-    // Priority filter
     if (priorityFilter !== 'all' && task.priority !== priorityFilter) return false;
-
-    // Search query
     if (searchQuery.trim() && !task.title.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false;
     }
-
     return true;
   });
 
@@ -160,7 +176,17 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <div className="header-badge">React Task Manager</div>
+        <div className="header-top">
+          <span className="header-badge">React Task Manager</span>
+          <button 
+            className="theme-toggle-btn" 
+            onClick={toggleTheme} 
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+        </div>
         <h1 className="app-title">Task Master</h1>
         <p className="app-subtitle">Organize, prioritize, and drag-and-drop to reorder your tasks</p>
       </header>
@@ -195,7 +221,6 @@ function App() {
           ) : (
             <ul className="todo-list">
               {filteredTasks.map((task) => {
-                // Find original index in full tasks array for accurate reordering
                 const originalIndex = tasks.findIndex((t) => t.id === task.id);
                 return (
                   <TodoItem

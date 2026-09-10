@@ -7,12 +7,20 @@
   gap: 1.75rem;
 }
 
-/* Header */
+/* Header & Theme Toggle */
 .app-header {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .header-badge {
@@ -25,16 +33,33 @@
   border: 1px solid rgba(99, 102, 241, 0.3);
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
-  margin-bottom: 0.75rem;
+}
+
+.theme-toggle-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.08);
+  border-color: var(--accent-primary);
 }
 
 .app-title {
   font-size: 2.75rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -55,12 +80,13 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 /* Task Progress Stats */
 .task-stats-container {
-  background: rgba(15, 23, 42, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--stats-bg);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.25rem;
 }
@@ -87,9 +113,9 @@
 .percentage-badge {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #a7f3d0;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--low-priority);
+  background: var(--low-priority-bg);
+  border: 1px solid rgba(5, 150, 105, 0.3);
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-sm);
 }
@@ -97,7 +123,7 @@
 .progress-bar-bg {
   width: 100%;
   height: 8px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(148, 163, 184, 0.2);
   border-radius: 9999px;
   overflow: hidden;
 }
@@ -123,7 +149,7 @@
 .task-input {
   flex: 1;
   min-width: 220px;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--input-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 0.85rem 1.1rem;
@@ -132,6 +158,7 @@
   font-family: inherit;
   outline: none;
   transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .task-input:focus {
@@ -140,7 +167,7 @@
 }
 
 .priority-select {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--input-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
@@ -150,6 +177,7 @@
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .priority-select:focus {
@@ -188,7 +216,7 @@
   flex-direction: column;
   gap: 0.85rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--card-border);
 }
 
 .search-box {
@@ -206,7 +234,7 @@
 
 .search-input {
   width: 100%;
-  background: rgba(15, 23, 42, 0.4);
+  background: var(--input-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   padding: 0.65rem 2.2rem 0.65rem 2.5rem;
@@ -243,7 +271,7 @@
 
 .segmented-control {
   display: flex;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--control-bg);
   padding: 3px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--card-border);
@@ -268,7 +296,7 @@
 }
 
 .priority-filter-select {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--control-bg);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   padding: 0.45rem 0.75rem;
@@ -280,8 +308,8 @@
 
 .clear-completed-btn {
   background: rgba(239, 68, 68, 0.1);
-  color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: var(--radius-sm);
   padding: 0.45rem 0.75rem;
   font-size: 0.825rem;
@@ -335,8 +363,8 @@
 
 /* Todo Item Card */
 .todo-item {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--item-bg);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 0.9rem 1.1rem;
   display: flex;
@@ -345,10 +373,11 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   position: relative;
+  box-shadow: var(--shadow-sm);
 }
 
 .todo-item:hover {
-  background: rgba(30, 41, 59, 0.8);
+  background: var(--item-hover-bg);
   border-color: var(--card-hover-border);
   box-shadow: var(--shadow-md);
 }
@@ -395,8 +424,8 @@
 }
 
 .reorder-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--control-bg);
+  border: 1px solid var(--card-border);
   color: var(--text-secondary);
   font-size: 0.65rem;
   width: 20px;
@@ -443,7 +472,7 @@
   left: 0;
   height: 20px;
   width: 20px;
-  background-color: rgba(15, 23, 42, 0.6);
+  background-color: var(--input-bg);
   border: 2px solid var(--text-muted);
   border-radius: 6px;
   transition: all 0.2s ease;
@@ -500,7 +529,7 @@
 
 .edit-input {
   width: 100%;
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--input-bg);
   border: 1px solid var(--accent-primary);
   border-radius: 6px;
   padding: 0.35rem 0.65rem;
@@ -522,19 +551,19 @@
 }
 
 .badge-high {
-  color: #fca5a5;
+  color: var(--high-priority);
   background: var(--high-priority-bg);
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .badge-medium {
-  color: #fde047;
+  color: var(--medium-priority);
   background: var(--medium-priority-bg);
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .badge-low {
-  color: #a7f3d0;
+  color: var(--low-priority);
   background: var(--low-priority-bg);
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
@@ -562,7 +591,7 @@
 }
 
 .action-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(148, 163, 184, 0.2);
   transform: scale(1.1);
 }
 
